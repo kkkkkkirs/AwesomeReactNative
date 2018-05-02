@@ -23,6 +23,7 @@ export class HelloApp extends Component {
         };
 
     }
+    
     render() {
         return (
             <Animated.View style={{ flex: 1,
