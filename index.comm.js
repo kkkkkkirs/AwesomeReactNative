@@ -12,24 +12,46 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     View,
-    Animated
+    Animated,
+    Dimensions
 } from 'react-native';
+
+const {width:SCREEN_WIDTH,height:SCREEN_HEIGHT} = Dimensions.get('window')
 
 export class HelloApp extends Component {
     constructor(props){
         super(props);
         this.state={
-            opacity:new Animated.Value(0)
+            opacity:new Animated.Value(0),
+            width:new Animated.Value(0),
+            height:new Animated.Value(0)
+
         };
 
     }
-    
+
+    _exeAnimation(){
+        this.state.width = new Animated.Value(SCREEN_WIDTH/2);
+        this.state.height=new Animated.Value(100);
+        Animated.parallel([
+            Animated.timing(this.state.width,{
+                toValue:SCREEN_WIDTH,
+                duration:4000
+            }),
+            Animated.timing(this.state.height,{
+                toValue:SCREEN_HEIGHT,
+                duration:4000
+            })
+        ]).start();
+
+    }
+
     render() {
         return (
             <Animated.View style={{ flex: 1,
                                     marginTop: 50,opacity:this.state.opacity}}>
                 <View style={styles.topContent}>
-                    <TouchableOpacity activeOpacity={0.5}>
+                    <TouchableOpacity activeOpacity={0.5} onPress={()=>this._exeAnimation()}>
                         <Text style={styles.mytextstyle}>HelloReactNative</Text>
                     </TouchableOpacity>
                     <TouchableHighlight onPress={() => console.log('pressed')}>
@@ -38,8 +60,9 @@ export class HelloApp extends Component {
                 </View>
                 <View style={styles.content}>
                     <View style={{flexDirection:'row',height:200,backgroundColor:'#FF0000'}}>
-                        <View style={{flex:1,backgroundColor:'#890'}}></View>
-                        <View style={{flex:1,backgroundColor:'#00F'}}></View>
+                        <Animated.View style={[{width:this.state.width,height:this.state.height},{flex:1,backgroundColor:'#00F'}]}></Animated.View>
+
+                        <View style={{flex:1,backgroundColor:'#b3b3b3'}}></View>
                     </View>
                 </View>
 
