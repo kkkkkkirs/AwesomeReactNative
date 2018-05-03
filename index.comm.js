@@ -31,15 +31,15 @@ export class HelloApp extends Component {
     }
 
     _exeAnimation(){
-        this.state.width = new Animated.Value(SCREEN_WIDTH/2);
-        this.state.height=new Animated.Value(100);
+        this.state.width.setValue(2);
+        this.state.height.setValue(10);
         Animated.parallel([
             Animated.timing(this.state.width,{
                 toValue:SCREEN_WIDTH,
                 duration:4000
             }),
             Animated.timing(this.state.height,{
-                toValue:SCREEN_HEIGHT,
+                toValue:500,
                 duration:4000
             })
         ]).start();
@@ -60,9 +60,7 @@ export class HelloApp extends Component {
                 </View>
                 <View style={styles.content}>
                     <View style={{flexDirection:'row',height:200,backgroundColor:'#FF0000'}}>
-                        <Animated.View style={[{width:this.state.width,height:this.state.height},{flex:1,backgroundColor:'#00F'}]}></Animated.View>
-
-                        <View style={{flex:1,backgroundColor:'#b3b3b3'}}></View>
+                        <Animated.View style={[{width:this.state.width,height:this.state.height},{backgroundColor:'#00F'}]}></Animated.View>
                     </View>
                 </View>
 
